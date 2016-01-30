@@ -3,6 +3,18 @@
 
 #include <QtGui>
 #include "MonitorScreen.h"
+#include "GrObject.h"
+
+typedef struct{
+    GrObject* object;
+    quint8  stateNumber;
+}TOBJSTATE;
+
+typedef struct{
+    QString GlobalStateName;
+    MonitorScreen* screen;
+    QList<TOBJSTATE> objectState;
+}TGlobalState;
 
 class GlobalStateWindow : public QDialog
 {
@@ -15,9 +27,11 @@ private:
     QLineEdit* leName;
     QList<MonitorScreen*>* screenList;
     bool allowObjSlot;
+    QList<TGlobalState> gsList;
     QVector<quint32> gsVector;
 public:
     GlobalStateWindow(QList<MonitorScreen*> *scrList, QWidget* _parent = 0);
+    void setScreenList( QList<MonitorScreen*>* scrList ){ screenList = scrList;}
 private slots:
     // buttons slots
     void slotAddGS();
